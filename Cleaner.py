@@ -9,10 +9,10 @@ def main():
     parser.add_argument('-a', '--all',action='store_true', dest='show_all',help='Show all information')
     parser.add_argument('--info', '-i', help='show informations info', action='store_true')
     parser.add_argument('--dyld', '-d', help='show informations dyld_info', action='store_true')
-    parser.add_argument('--comp', '-c', help='show informations dyld_info', action='store_true')
+    parser.add_argument('--comp', '-c', help='show complied protection info', action='store_true')
     parser.add_argument('--head', '-head', help="Show Header Infomations", action='store_true')
-    parser.add_argument('--lib', '-lib', help="Show Header Infomations", action='store_true')
-    parser.add_argument('--func', '-func', help="Show Header Infomations", action='store_true')
+    parser.add_argument('--lib', '-lib', help="Show Library info", action='store_true')
+    parser.add_argument('--func', '-func', help="Show Function Information.", action='store_true')
 
 
 
