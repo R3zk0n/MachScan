@@ -2,17 +2,36 @@ import lief
 import argparse
 from termcolor import colored
 import sys
+##############################
+## TODO: 
+##
+## Implement Windows PE Switch flags 
+## Implement Linux Switch Flags. 
+## Add Macho Header Switching for compliation and hooking for the binrary.
+## 
+##
+## If you want file output. Use Pipe. -.-{}/***
+##
+###Id rather work non stop
+###What they call incessantly
+###Than work some odd job
+###Just to live life pleasantly
+
+##############################
+
+
 
 def main():
     parser = argparse.ArgumentParser(description="Read Mach-O file")
     parser.add_argument('filename', help='Mach-O file to parse and print')
     parser.add_argument('-a', '--all',action='store_true', dest='show_all',help='Show all information')
     parser.add_argument('--info', '-i', help='show informations info', action='store_true')
-    parser.add_argument('--dyld', '-d', help='show informations dyld_info', action='store_true')
-    parser.add_argument('--comp', '-c', help='show complied protection info', action='store_true')
-    parser.add_argument('--head', '-head', help="Show Header Infomations", action='store_true')
-    parser.add_argument('--lib', '-lib', help="Show Library info", action='store_true')
-    parser.add_argument('--func', '-func', help="Show Function Information.", action='store_true')
+    parser.add_argument('--dyld', '-d', help='show informations dyld_info informations', action='store_true')
+    parser.add_argument('--comp', '-c', help='show informations regarding Compiled Protections', action='store_true')
+    parser.add_argument('--head', '-head', help="Show Header Infomation", action='store_true')
+    parser.add_argument('--lib', '-lib', help="Show Libraries Information", action='store_true')
+    parser.add_argument('--func', '-func', help="Show Function Details", action='store_true')
+
 
 
 
@@ -23,15 +42,15 @@ def main():
     	format_str = "{:<13} {:<30}"
     	format_hex = "{:<13} 0x{:<28x}"
     	format_dec = "{:<13} {:<30d}"
+    	print(format_str.format("Name:", binary.name))
 
-
-    	print("== Main Command ==")
+    	print colored("== Main Command ==", 'red')
     	cmd = binary.main_command
 
     	print(format_hex.format("Entry point:", cmd.entrypoint))
     	print(format_hex.format("Stack size:", cmd.stack_size))
     	
-    	print("== Function Starts ==")
+    	print colored("== Function Starts ==", 'yellow')
 
     	fstarts = binary.function_starts
 
@@ -82,7 +101,13 @@ def main():
     if args.dyld or args.show_all:
     	data = binary.dyld_info
     	print data
-    	
+    	for idx, binfo in enumerate(data.bindings):
+    		print("{:10}: {:x}".format("Address", binfo.address))
+
+    	if binfo.has_symbol:
+    	   print colored("[*] Located Symbol [******]", 'red')
+           print("{:10}: {}".format("Symbol", binfo.symbol.name))
+
 
     if args.lib or args.show_all:
     	f_title = "|{:<30}|{:<10}|{:<16}|{:<22}|"
