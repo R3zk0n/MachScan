@@ -6,9 +6,7 @@ import sys
 ## TODO: 
 ##
 ## Implement Windows PE Switch flags 
-## Implement Linux Switch Flags. 
-## Add Macho Header Switching for compliation and hooking for the binrary.
-## 
+## Implement Linux Switch Flags. ## 
 ##
 ## If you want file output. Use Pipe. -.-{}/***
 ##
